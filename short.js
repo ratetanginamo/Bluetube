@@ -1,27 +1,36 @@
 const encoded = "QUl6YVN5Q1lSSU5OcEtTTEVYaWNEZThmc3I4Z1ZNZ1RWMTRSNGdR";
 const API_KEY = atob(encoded);
 
-const urlParams = new URLSearchParams(window.location.search);
-const videoId = urlParams.get("id");
+document.addEventListener("DOMContentLoaded", () => {
+  loadShorts();
+});
 
-if (!videoId) {
-  document.body.innerHTML = "<h2 style='text-align:center;'>❌ Video not found</h2>";
-} else {
-  const player = document.getElementById("player");
-  player.innerHTML = `
-    <iframe width="100%" height="400"
-      src="https://www.youtube.com/embed/${videoId}"
-      frameborder="0" allowfullscreen></iframe>
-  `;
+async function loadShorts() {
+  const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=10&q=shorts&key=${API_KEY}`;
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    const container = document.getElementById("shorts");
+    container.innerHTML = "";
 
-  fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${API_KEY}`)
-    .then(res => res.json())
-    .then(data => {
-      if (data.items && data.items.length > 0) {
-        const info = data.items[0].snippet;
-        document.getElementById("title").textContent = info.title;
-        document.getElementById("description").textContent = info.description;
-      }
-    })
-    .catch(err => console.error(err));
+    data.items.forEach(item => {
+      const videoId = item.id.videoId;
+      const title = item.snippet.title;
+      const channel = item.snippet.channelTitle;
+
+      const videoDiv = document.createElement("div");
+      videoDiv.classList.add("short-card");
+      videoDiv.innerHTML = `
+        <iframe src="https://www.youtube.com/embed/${videoId}?playsinline=1"
+          frameborder="0" allowfullscreen></iframe>
+        <div class="short-info">
+          <h3>${title}</h3>
+          <p>${channel}</p>
+        </div>
+      `;
+      container.appendChild(videoDiv);
+    });
+  } catch (err) {
+    console.error("Error loading shorts:", err);
+  }
 }
