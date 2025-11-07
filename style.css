@@ -25,6 +25,7 @@ header.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 header.header h1 {
@@ -48,23 +49,30 @@ header.header .nav-btn:hover {
 }
 
 /* ==========================
-   Search Bar
+   Search Bar (Always Center)
 ========================== */
 .search-bar {
   display: flex;
   justify-content: center;
-  padding: 10px;
-  background: #fff;
+  align-items: center;
+  gap: 10px;
+  margin: 20px auto;
+  width: 100%;
+  max-width: 600px;
+  flex-wrap: wrap;
 }
 
 .search-bar input {
-  width: 70%;
-  padding: 10px;
+  flex: 1;
+  min-width: 200px;
+  max-width: 400px;
+  padding: 10px 15px;
   font-size: 1em;
   border: 1px solid #ccc;
-  border-radius: 20px;
+  border-radius: 25px;
   outline: none;
   transition: 0.3s;
+  text-align: center;
 }
 
 .search-bar input:focus {
@@ -72,8 +80,23 @@ header.header .nav-btn:hover {
   box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
 }
 
+.search-bar button {
+  padding: 10px 18px;
+  border: none;
+  background: #1e90ff;
+  color: white;
+  font-weight: bold;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search-bar button:hover {
+  background: #0d75d8;
+}
+
 /* ==========================
-   Video Grid (Index)
+   Video Grid (Index Page)
 ========================== */
 .video-grid {
   display: grid;
@@ -235,4 +258,36 @@ footer {
   padding: 15px;
   background: #1e90ff;
   color: white;
-   }
+}
+
+/* ==========================
+   Responsive Design
+========================== */
+@media (max-width: 768px) {
+  header.header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .video-container iframe {
+    height: 300px;
+  }
+
+  .video-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  header.header h1 {
+    font-size: 1.2em;
+  }
+
+  .search-bar input {
+    max-width: 300px;
+  }
+
+  .video-container iframe {
+    height: 220px;
+  }
+}
