@@ -1,40 +1,32 @@
-import express from "express";
-import fetch from "node-fetch";
-import dotenv from "dotenv";
+// Base64 encoded YouTube API key
+const encoded = "QUl6YVN5Q1lSSU5OcEtTTEVYaWNEZThmc3I4Z1ZNZ1RWMTRSNGdR";
+const API_KEY = atob(encoded); // decode it
 
-dotenv.config();
+async function search() {
+  const query = document.getElementById("search").value;
+  if (!query) return alert("Please type something to search.");
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-const API_KEY = process.env.YT_KEY;
-
-app.use(express.static("."));
-
-// YouTube Search Endpoint (proxy)
-app.get("/api/search", async (req, res) => {
-  const q = req.query.q;
-  if (!q) return res.status(400).json({ error: "Missing query" });
+  const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=8&q=${encodeURIComponent(query)}&key=${API_KEY}`;
 
   try {
-    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=8&q=${encodeURIComponent(
-      q
-    )}&key=${API_KEY}`;
+    const res = await fetch(url);
+    const data = await res.json();
 
-    const response = await fetch(url);
-    const data = await response.json();
+    const results = document.getElementById("results");
+    results.innerHTML = "";
 
-    const results = data.items.map(item => ({
-      id: item.id.videoId,
-      title: item.snippet.title,
-      thumbnail: item.snippet.thumbnails.medium.url,
-    }));
-
-    res.json(results);
+    data.items.forEach(item => {
+      const video = document.createElement("div");
+      video.classList.add("video");
+      video.innerHTML = `
+        <img src="${item.snippet.thumbnails.medium.url}" alt="${item.snippet.title}">
+        <h3>${item.snippet.title}</h3>
+        <a href="https://www.youtube.com/watch?v=${item.id.videoId}" target="_blank">Watch</a>
+      `;
+      results.appendChild(video);
+    });
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch videos" });
+    console.error(err);
+    alert("Failed to fetch videos. Check your API key or quota.");
   }
-});
-
-app.listen(PORT, () =>
-  console.log(`🚀 Server running on http://127.0.0.1:${PORT}`)
-);
+}
