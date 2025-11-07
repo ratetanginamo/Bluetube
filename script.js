@@ -1,6 +1,6 @@
-// Base64 encoded YouTube API key
+
 const encoded = "QUl6YVN5Q1lSSU5OcEtTTEVYaWNEZThmc3I4Z1ZNZ1RWMTRSNGdR";
-const API_KEY = atob(encoded); // decode it
+const API_KEY = atob(encoded);
 
 async function search() {
   const query = document.getElementById("search").value;
