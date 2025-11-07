@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎬 BlueTube</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎥 BlueTube</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="header">
     <h1>📺 BlueTube</h1>
+    <nav>
+      <a href="short.html" class="nav-btn">📱 Shorts</a>
+    </nav>
   </header>
 
-  <div class="search-box">
-    <input type="text" id="search" placeholder="Search YouTube videos...">
+  <main class="container">
+    <input type="text" id="search" placeholder="Search videos..." />
     <button onclick="search()">Search</button>
-  </div>
-
-  <h2 class="section-title">🔥 Trending Now</h2>
-  <div id="trending" class="results"></div>
-
-  <h2 class="section-title">📱 Shorts</h2>
-  <div id="shorts" class="results"></div>
+    <div id="results" class="video-grid"></div>
+  </main>
 
   <script src="index.js"></script>
 </body>
