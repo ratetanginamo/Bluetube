@@ -1,51 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🎥 BlueTube</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="header">
-    <h1>🎬 BlueTube</h1>
-    <input type="text" id="searchInput" placeholder="Search videos..." />
-    <button id="searchBtn">🔍 Search</button>
-  </header>
+  <div class="container">
+    <h1>🎥 BlueTube</h1>
+    <input type="text" id="search" placeholder="Search YouTube videos...">
+    <button onclick="search()">Search</button>
+    <div id="results"></div>
+  </div>
 
-  <main id="videosContainer" class="videos"></main>
-
-  <script>
-    const searchBtn = document.getElementById("searchBtn");
-    const searchInput = document.getElementById("searchInput");
-    const videosContainer = document.getElementById("videosContainer");
-
-    searchBtn.addEventListener("click", async () => {
-      const query = searchInput.value.trim();
-      if (!query) return alert("Please enter a search term!");
-
-      videosContainer.innerHTML = "<p>Loading...</p>";
-
-      try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
-        const data = await res.json();
-
-        videosContainer.innerHTML = "";
-        data.forEach(video => {
-          const div = document.createElement("div");
-          div.classList.add("video");
-          div.innerHTML = `
-            <img src="${video.thumbnail}" alt="${video.title}" />
-            <h3>${video.title}</h3>
-            <a href="https://www.youtube.com/watch?v=${video.id}" target="_blank">Watch</a>
-          `;
-          videosContainer.appendChild(div);
-        });
-      } catch (err) {
-        console.error(err);
-        videosContainer.innerHTML = "<p>Error fetching videos.</p>";
-      }
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
