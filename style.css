@@ -159,8 +159,10 @@ header.header .nav-btn:hover {
   color: #fff;
   margin: 0;
   padding: 0;
-  overflow: hidden;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .fixed-header {
@@ -173,19 +175,19 @@ header.header .nav-btn:hover {
   color: white;
   text-align: center;
   padding: 10px;
+  font-size: 1.2em;
 }
 
 .shorts-feed {
-  position: relative;
-  top: 60px; /* below header */
-  height: calc(100vh - 60px);
+  flex: 1;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
 }
 
 .short-card {
   position: relative;
-  height: calc(100vh - 60px);
+  height: 100%;
   width: 100%;
   scroll-snap-align: start;
   display: flex;
@@ -194,7 +196,8 @@ header.header .nav-btn:hover {
   background: #000;
 }
 
-.short-card iframe {
+.short-card iframe,
+.short-card video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -219,6 +222,11 @@ header.header .nav-btn:hover {
   color: #ccc;
 }
 
+/* Hide scrollbar for cleaner look */
+.shorts-feed::-webkit-scrollbar {
+  display: none;
+}
+
 /* ==========================
    Footer
 ========================== */
@@ -227,4 +235,4 @@ footer {
   padding: 15px;
   background: #1e90ff;
   color: white;
-               }
+   }
