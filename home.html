@@ -3,22 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🎥 BlueTube</title>
+  <title>BlueTube</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
   <header class="header">
-    <h1>📺 BlueTube</h1>
-    <nav>
-      <a href="short.html" class="nav-btn">📱 Shorts</a>
-    </nav>
+    <h1>BlueTube</h1>
+    <button id="theme-toggle" class="nav-btn"><i class="fas fa-moon"></i></button>
   </header>
 
   <main class="container">
-    <input type="text" id="search" placeholder="Search videos..." />
-    <button onclick="search()">Search</button>
+    <div class="search-bar">
+      <input type="text" id="search" placeholder="Search videos..." />
+      <button onclick="search()"><i class="fas fa-search"></i></button>
+    </div>
+    <div id="loading" class="loading" style="display: none;">Loading...</div>
     <div id="results" class="video-grid"></div>
   </main>
+
+  <footer>
+    <p>© 2025 BlueTube. Made with <i class="fas fa-heart"></i> for fun.</p>
+  </footer>
 
   <script src="index.js"></script>
 </body>
