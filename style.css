@@ -6,12 +6,14 @@ body {
   padding: 20px;
 }
 
+/* Container */
 .container {
   max-width: 800px;
   margin: auto;
   text-align: center;
 }
 
+/* Search input + button */
 input {
   padding: 10px;
   width: 60%;
@@ -28,11 +30,9 @@ button {
   border-radius: 6px;
   cursor: pointer;
 }
+button:hover { background: #187bcd; }
 
-button:hover {
-  background: #187bcd;
-}
-
+/* Results grid */
 #results {
   margin-top: 20px;
   display: grid;
@@ -49,4 +49,39 @@ button:hover {
 .video img {
   width: 100%;
   border-radius: 8px;
+}
+
+/* Video page */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1e90ff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+.back-btn {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  background: rgba(255,255,255,0.2);
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+.video-container {
+  max-width: 800px;
+  margin: 20px auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  padding: 15px;
+}
+#video-info {
+  text-align: left;
+  margin-top: 15px;
+}
+#description {
+  color: #555;
+  white-space: pre-line;
 }
