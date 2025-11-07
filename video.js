@@ -11,10 +11,9 @@ if (!videoId) {
   player.innerHTML = `
     <iframe width="100%" height="400"
       src="https://www.youtube.com/embed/${videoId}"
-      frameborder="0"
-      allowfullscreen>
-    </iframe>
+      frameborder="0" allowfullscreen></iframe>
   `;
+
   fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${API_KEY}`)
     .then(res => res.json())
     .then(data => {
@@ -22,12 +21,7 @@ if (!videoId) {
         const info = data.items[0].snippet;
         document.getElementById("title").textContent = info.title;
         document.getElementById("description").textContent = info.description;
-      } else {
-        document.getElementById("title").textContent = "Video not found.";
       }
     })
-    .catch(err => {
-      console.error(err);
-      document.getElementById("title").textContent = "Error loading video info.";
-    });
+    .catch(err => console.error(err));
 }
