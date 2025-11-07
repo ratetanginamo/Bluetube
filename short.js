@@ -1,27 +1,27 @@
 const encoded = "QUl6YVN5Q1lSSU5OcEtTTEVYaWNEZThmc3I4Z1ZNZ1RWMTRSNGdR";
 const API_KEY = atob(encoded);
 
-document.addEventListener("DOMContentLoaded", () => {
-  loadShorts();
-});
+const urlParams = new URLSearchParams(window.location.search);
+const videoId = urlParams.get("id");
 
-async function loadShorts() {
-  const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=12&q=shorts&key=${API_KEY}`;
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
-    const shortsDiv = document.getElementById("shorts");
-    shortsDiv.innerHTML = "";
-    data.items.forEach(item => {
-      shortsDiv.innerHTML += `
-        <div class="video">
-          <img src="${item.snippet.thumbnails.medium.url}" alt="${item.snippet.title}">
-          <h3>${item.snippet.title}</h3>
-          <a href="video.html?id=${item.id.videoId}">Watch</a>
-        </div>
-      `;
-    });
-  } catch (err) {
-    console.error("Error loading shorts:", err);
-  }
+if (!videoId) {
+  document.body.innerHTML = "<h2 style='text-align:center;'>❌ Video not found</h2>";
+} else {
+  const player = document.getElementById("player");
+  player.innerHTML = `
+    <iframe width="100%" height="400"
+      src="https://www.youtube.com/embed/${videoId}"
+      frameborder="0" allowfullscreen></iframe>
+  `;
+
+  fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${API_KEY}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.items && data.items.length > 0) {
+        const info = data.items[0].snippet;
+        document.getElementById("title").textContent = info.title;
+        document.getElementById("description").textContent = info.description;
+      }
+    })
+    .catch(err => console.error(err));
 }
