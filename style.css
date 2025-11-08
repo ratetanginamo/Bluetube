@@ -1,42 +1,76 @@
+/* ==========================
+   General Styles
+========================== */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   background: #f0f4f8;
+  color: #333;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ==========================
+   Header
+========================== */
 header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 15px;
+  justify-content: center; /* center title & search */
+  padding: 10px 20px;
   background: #ff0000;
   color: #fff;
+  width: 100%; /* make sure header spans full width */
+  box-sizing: border-box; /* include padding in width */
+  position: relative; /* for right button positioning */
+}
+
+header h1 {
+  margin: 0;
+  text-align: center;
+  flex: 1;
+  min-width: 100px; /* prevent shrinking too much */
+}
+
+.header-center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap; /* allow wrapping on small screens */
+  justify-content: center;
 }
 
 header input {
   padding: 8px;
-  width: 300px;
+  width: 250px;
+  max-width: 100%; /* fit small screens */
   border-radius: 5px;
   border: none;
+  box-sizing: border-box;
 }
 
-header button {
+/* Right-aligned button */
+header .right-btn {
+  position: absolute;
+  right: 20px;
   padding: 8px 12px;
   border: none;
   border-radius: 5px;
   background: #fff;
   color: #ff0000;
   cursor: pointer;
-}
-
-header a {
-  color: #fff;
   text-decoration: none;
-  font-weight: bold;
+  white-space: nowrap; /* prevent text wrapping */
+  box-sizing: border-box;
 }
 
+/* ==========================
+   Video Grid (Index Page)
+========================== */
 #video-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -49,10 +83,16 @@ header a {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.video-card:hover {
+  transform: scale(1.03);
 }
 
 .video-card img {
   width: 100%;
+  display: block;
 }
 
 .video-card h3 {
@@ -61,8 +101,44 @@ header a {
   color: #333;
 }
 
+/* ==========================
+   Watch Page
+========================== */
 #video-container {
   padding: 15px;
-  max-width: 800px;
+  max-width: 900px;
   margin: auto;
 }
+
+iframe {
+  width: 100%;
+  max-height: 500px;
+  border: none;
+}
+
+/* ==========================
+   Responsive Adjustments
+========================== */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .header-center {
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0;
+  }
+
+  header input {
+    width: 100%;
+  }
+
+  header .right-btn {
+    position: static;
+    margin-top: 10px;
+  }
+    }
