@@ -1,12 +1,11 @@
-// === Termux server IP ===
-const API_SERVER = 'http://192.168.1.61:3000';
+// WebSocket server
 const WS_SERVER = 'ws://192.168.1.61:3000';
-
-// WebSocket for live comments
 const ws = new WebSocket(WS_SERVER);
 
 ws.onmessage = (event) => {
   const data = JSON.parse(event.data);
+
+  // Live comments
   if(data.type === 'comment') {
     const list = document.getElementById('commentList');
     const div = document.createElement('div');
@@ -15,17 +14,32 @@ ws.onmessage = (event) => {
     list.appendChild(div);
     list.scrollTop = list.scrollHeight;
   }
+
+  // Video search results
+  if(data.type === 'searchResults') {
+    renderResults(data.items || []);
+  }
+
+  if(data.type === 'error') {
+    console.error(data.message);
+  }
 };
 
-// Search YouTube videos
-async function searchVideos() {
-  const q = document.getElementById('search').value || 'trending';
-  const res = await fetch(`${API_SERVER}/api/search?q=${encodeURIComponent(q)}`);
-  const data = await res.json();
-  renderResults(data.items || []);
+// Send comment
+function sendComment() {
+  const input = document.getElementById('commentInput');
+  if(input.value.trim() === '') return;
+  ws.send(JSON.stringify({ type:'comment', text: input.value, name:'Viewer', role:'viewer' }));
+  input.value = '';
 }
 
-// Render video results
+// Send search request
+function searchVideos() {
+  const query = document.getElementById('search').value || 'trending';
+  ws.send(JSON.stringify({ type:'search', query }));
+}
+
+// Render videos
 function renderResults(items) {
   const results = document.getElementById('results');
   results.innerHTML = '';
@@ -36,7 +50,6 @@ function renderResults(items) {
     const thumb = document.createElement('img');
     thumb.src = it.thumbnail;
     thumb.alt = it.title;
-    thumb.style.width = '100%';
 
     const title = document.createElement('div');
     title.className = 'title';
@@ -59,13 +72,6 @@ function renderResults(items) {
   });
 }
 
-// Send comment via WebSocket
-function sendComment() {
-  const input = document.getElementById('commentInput');
-  if(input.value.trim() === '') return;
-  ws.send(JSON.stringify({ type:'comment', text: input.value, name:'Viewer', role:'viewer' }));
-  input.value = '';
-}
-
 // Initial load
 searchVideos();
+                
