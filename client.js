@@ -1,4 +1,5 @@
-const API_SERVER = 'http://127.0.0.1:3000'; // change to your Termux server IP if needed
+const API_SERVER = 'http://192.168.1.61:3000';
+
 
 
 function renderResults(items){
