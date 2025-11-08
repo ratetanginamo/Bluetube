@@ -5,8 +5,8 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background: #f0f4f8;
-  color: #333;
+  background: #0a0a0a; /* Dark background for neon effect */
+  color: #fff;
 }
 
 a {
@@ -24,48 +24,93 @@ header {
   padding: 10px 20px;
   background: #ff0000;
   color: #fff;
-  width: 100%; /* make sure header spans full width */
-  box-sizing: border-box; /* include padding in width */
-  position: relative; /* for right button positioning */
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  flex-wrap: wrap;
 }
 
 header h1 {
   margin: 0;
-  text-align: center;
   flex: 1;
-  min-width: 100px; /* prevent shrinking too much */
+  text-align: center;
+  min-width: 100px;
+  text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
 }
 
+/* Header center: search + nav */
 .header-center {
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-wrap: wrap; /* allow wrapping on small screens */
+  flex-wrap: wrap;
   justify-content: center;
 }
 
 header input {
   padding: 8px;
   width: 250px;
-  max-width: 100%; /* fit small screens */
+  max-width: 100%;
   border-radius: 5px;
   border: none;
   box-sizing: border-box;
 }
 
-/* Right-aligned button */
-header .right-btn {
-  position: absolute;
-  right: 20px;
+header nav a {
   padding: 8px 12px;
-  border: none;
   border-radius: 5px;
   background: #fff;
   color: #ff0000;
-  cursor: pointer;
+  margin-left: 5px;
   text-decoration: none;
-  white-space: nowrap; /* prevent text wrapping */
-  box-sizing: border-box;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* ==========================
+   Neon Logos
+========================== */
+header .logos {
+  position: absolute;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+header .logos img {
+  width: 25px;
+  height: 25px;
+  filter: drop-shadow(0 0 5px #00fffc) drop-shadow(0 0 10px #00fffc) hue-rotate(200deg);
+  transition: transform 0.2s, filter 0.2s;
+}
+
+header .logos img:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 10px #00fffc) drop-shadow(0 0 15px #00fffc) hue-rotate(200deg);
+}
+
+/* ==========================
+   Description / About Section
+========================== */
+#description {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #111;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #00ffff;
+}
+
+#description h2 {
+  margin-top: 0;
+  color: #00ffff;
+  text-shadow: 0 0 5px #00ffff;
+}
+
+#description p {
+  line-height: 1.6;
+  color: #ccc;
 }
 
 /* ==========================
@@ -79,15 +124,16 @@ header .right-btn {
 }
 
 .video-card {
-  background: #fff;
+  background: #111;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+  box-shadow: 0 0 10px #00ffff;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .video-card:hover {
   transform: scale(1.03);
+  box-shadow: 0 0 20px #00ffff;
 }
 
 .video-card img {
@@ -98,7 +144,7 @@ header .right-btn {
 .video-card h3 {
   padding: 10px;
   font-size: 16px;
-  color: #333;
+  color: #fff;
 }
 
 /* ==========================
@@ -137,8 +183,8 @@ iframe {
     width: 100%;
   }
 
-  header .right-btn {
+  header .logos {
     position: static;
     margin-top: 10px;
   }
-    }
+}
