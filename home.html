@@ -1,46 +1,34 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BlackTube</title>
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackTube</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="topbar">
-<div class="brand">BlackTube</div>
-<div class="search">
-<input id="q" placeholder="Search YouTube (from server)" />
-<button id="searchBtn">Search</button>
-</div>
-<div class="role">
-<select id="roleSelect">
-<option value="viewer">Viewer</option>
-<option value="creator">Creator</option>
-<option value="moderator">Moderator</option>
-</select>
-</div>
-</header>
+  <header>
+    <h1>BlackTube</h1>
+  </header>
 
+  <main class="container">
+    <div class="search-bar">
+      <input type="text" id="search" placeholder="Search videos...">
+      <button onclick="searchVideos()">Search</button>
+    </div>
 
-<main class="container">
-<section class="video-list" id="results"></section>
+    <div id="playerArea" class="player-area"></div>
 
+    <div id="results" class="video-grid"></div>
 
-<aside class="player-pane">
-<div id="playerArea">Select a video</div>
-<div class="comments">
-<h3>Live comments</h3>
-<div id="commentsList"></div>
-<div class="comment-input">
-<input id="commentInput" placeholder="Say something..." />
-<button id="sendComment">Send</button>
-</div>
-</div>
-</aside>
-</main>
+    <div class="comments">
+      <h3>Live Comments</h3>
+      <div id="commentList"></div>
+      <input type="text" id="commentInput" placeholder="Write a comment...">
+      <button onclick="sendComment()">Send</button>
+    </div>
+  </main>
 
-
-<script src="client.js"></script>
+  <script src="client.js"></script>
 </body>
 </html>
