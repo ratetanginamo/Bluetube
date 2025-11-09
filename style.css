@@ -5,7 +5,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background: #0a0a0a; /* Dark background for neon effect */
+  background: #0a0a0a;
   color: #fff;
 }
 
@@ -25,8 +25,6 @@ header {
   padding: 10px 20px;
   background: #ff0000;
   color: #fff;
-  width: 100%;
-  box-sizing: border-box;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -34,20 +32,14 @@ header {
 
 header h1 {
   margin: 0;
-  flex: 1;
-  text-align: left;
-  min-width: 120px;
   text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
 }
 
-/* Header Center */
 .header-center {
   display: flex;
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  justify-content: center;
-  flex: 2;
 }
 
 header input {
@@ -56,7 +48,6 @@ header input {
   max-width: 100%;
   border-radius: 5px;
   border: none;
-  box-sizing: border-box;
 }
 
 header nav a {
@@ -65,123 +56,82 @@ header nav a {
   background: #fff;
   color: #ff0000;
   margin-left: 5px;
-  text-decoration: none;
-  cursor: pointer;
   font-weight: bold;
 }
 
 /* Neon Logos */
-header .logos {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
 header .logos img {
   width: 25px;
   height: 25px;
-  filter: drop-shadow(0 0 5px #00fffc) drop-shadow(0 0 10px #00fffc) hue-rotate(200deg);
+  filter: drop-shadow(0 0 5px #00fffc) drop-shadow(0 0 10px #00fffc);
   transition: transform 0.2s, filter 0.2s;
 }
 
 header .logos img:hover {
   transform: scale(1.2);
-  filter: drop-shadow(0 0 10px #00fffc) drop-shadow(0 0 15px #00fffc) hue-rotate(200deg);
+  filter: drop-shadow(0 0 10px #00fffc) drop-shadow(0 0 15px #00fffc);
 }
 
 /* ==========================
-   Watch Page Layout
+   Main Side-by-Side Layout
 ========================== */
-#video-container {
+#main-content {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
   max-width: 1200px;
   margin: 20px auto;
-  padding: 15px;
-  box-sizing: border-box;
+  gap: 20px;
+  padding: 10px;
 }
 
-#video-player {
-  flex: 2 1 600px; /* Main video area */
-}
-
-#video-player iframe {
-  width: 100%;
-  height: 450px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px #00ffff;
-}
-
-#video-info {
-  flex: 1 1 300px; /* Info & related videos */
+/* Left Column: Featured Video or Main Content */
+.left-column {
+  flex: 2 1 700px; /* grows twice as big as right column */
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-/* Video Info Card */
-#video-info h2 {
-  font-size: 20px;
-  color: #00ffff;
-  text-shadow: 0 0 5px #00ffff;
-}
-
-#video-info p {
-  color: #ccc;
-  line-height: 1.5;
-}
-
-.related-videos {
+/* Right Column: Video List / Other Videos */
+.right-column {
+  flex: 1 1 300px;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 10px;
+  gap: 15px;
 }
 
-.related-video-card {
-  display: flex;
-  gap: 10px;
+/* Video Card */
+.video-card {
   background: #111;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 0 8px #00ffff;
+  box-shadow: 0 0 10px #00ffff;
   transition: transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
 }
 
-.related-video-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 0 15px #00ffff;
+.video-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 20px #00ffff;
 }
 
-.related-video-card img {
-  width: 120px;
-  height: 70px;
-  object-fit: cover;
+.video-card img {
+  width: 100%;
+  display: block;
 }
 
-.related-video-card div {
-  padding: 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.related-video-card h4 {
-  font-size: 14px;
+.video-card h3 {
+  padding: 10px;
+  font-size: 16px;
   color: #fff;
-  margin: 0;
 }
 
-.related-video-card p {
-  font-size: 12px;
-  color: #aaa;
-  margin: 0;
+.video-card p {
+  padding: 0 10px 10px 10px;
+  font-size: 14px;
+  color: #ccc;
 }
 
-/* ==========================
-   Footer
-========================== */
+/* Footer */
 footer {
   text-align: center;
   padding: 16px;
@@ -195,61 +145,12 @@ footer {
    Responsive Adjustments
 ========================== */
 @media (max-width: 1024px) {
-  #video-container {
+  #main-content {
     flex-direction: column;
-    align-items: center;
   }
 
-  #video-player {
-    width: 100%;
-  }
-
-  #video-info {
-    width: 100%;
+  .left-column,
+  .right-column {
+    flex: 1 1 100%;
   }
 }
-
-@media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-  }
-
-  .header-center {
-    width: 100%;
-    justify-content: center;
-    gap: 10px;
-    margin: 10px 0;
-  }
-
-  header input {
-    width: 100%;
-  }
-
-  header .logos {
-    position: static;
-    margin-top: 10px;
-  }
-
-  #video-player iframe {
-    height: 300px;
-  }
-
-  .related-video-card img {
-    width: 100px;
-    height: 60px;
-  }
-}
-
-@media (max-width: 480px) {
-  #video-player iframe {
-    height: 200px;
-  }
-
-  .related-video-card img {
-    width: 80px;
-    height: 50px;
-  }
-   }
-     
