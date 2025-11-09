@@ -1,156 +1,192 @@
 /* ==========================
-   General Styles
+   General Styles
 ========================== */
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #0a0a0a;
-  color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #0a0a0a; /* Dark background for neon effect */
+  color: #fff;
 }
 
 a {
-  text-decoration: none;
-  color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 /* ==========================
-   Header
+   Header
 ========================== */
 header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  background: #ff0000;
-  color: #fff;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* center title & search */
+  padding: 10px 20px;
+  background: #ff0000;
+  color: #fff;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  flex-wrap: wrap;
 }
 
 header h1 {
-  margin: 0;
-  text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+  margin: 0;
+  flex: 1;
+  text-align: center;
+  min-width: 100px;
+  text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
 }
 
+/* Header center: search + nav */
 .header-center {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 header input {
-  padding: 8px;
-  width: 250px;
-  max-width: 100%;
-  border-radius: 5px;
-  border: none;
+  padding: 8px;
+  width: 250px;
+  max-width: 100%;
+  border-radius: 5px;
+  border: none;
+  box-sizing: border-box;
 }
 
 header nav a {
-  padding: 8px 12px;
-  border-radius: 5px;
-  background: #fff;
-  color: #ff0000;
-  margin-left: 5px;
-  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 5px;
+  background: #fff;
+  color: #ff0000;
+  margin-left: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: bold;
 }
 
-/* Neon Logos */
+/* ==========================
+   Neon Logos
+========================== */
+header .logos {
+  position: absolute;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 header .logos img {
-  width: 25px;
-  height: 25px;
-  filter: drop-shadow(0 0 5px #00fffc) drop-shadow(0 0 10px #00fffc);
-  transition: transform 0.2s, filter 0.2s;
+  width: 25px;
+  height: 25px;
+  filter: drop-shadow(0 0 5px #00fffc) drop-shadow(0 0 10px #00fffc) hue-rotate(200deg);
+  transition: transform 0.2s, filter 0.2s;
 }
 
 header .logos img:hover {
-  transform: scale(1.2);
-  filter: drop-shadow(0 0 10px #00fffc) drop-shadow(0 0 15px #00fffc);
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 10px #00fffc) drop-shadow(0 0 15px #00fffc) hue-rotate(200deg);
 }
 
 /* ==========================
-   Main Side-by-Side Layout
+   Description / About Section
 ========================== */
-#main-content {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin: 20px auto;
-  gap: 20px;
-  padding: 10px;
+#description {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #111;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #00ffff;
 }
 
-/* Left Column: Featured Video or Main Content */
-.left-column {
-  flex: 2 1 700px; /* grows twice as big as right column */
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+#description h2 {
+  margin-top: 0;
+  color: #00ffff;
+  text-shadow: 0 0 5px #00ffff;
 }
 
-/* Right Column: Video List / Other Videos */
-.right-column {
-  flex: 1 1 300px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 15px;
+#description p {
+  line-height: 1.6;
+  color: #ccc;
 }
 
-/* Video Card */
+/* ==========================
+   Video Grid (Index Page)
+========================== */
+#video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+  padding: 15px;
+}
+
 .video-card {
-  background: #111;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 0 10px #00ffff;
-  transition: transform 0.2s, box-shadow 0.2s;
+  background: #111;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px #00ffff;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .video-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 20px #00ffff;
+  transform: scale(1.03);
+  box-shadow: 0 0 20px #00ffff;
 }
 
 .video-card img {
-  width: 100%;
-  display: block;
+  width: 100%;
+  display: block;
 }
 
 .video-card h3 {
-  padding: 10px;
-  font-size: 16px;
-  color: #fff;
-}
-
-.video-card p {
-  padding: 0 10px 10px 10px;
-  font-size: 14px;
-  color: #ccc;
-}
-
-/* Footer */
-footer {
-  text-align: center;
-  padding: 16px;
-  background-color: #ff0000;
-  color: #fff;
-  margin-top: 24px;
-  text-shadow: 0 0 5px #00ffff;
+  padding: 10px;
+  font-size: 16px;
+  color: #fff;
 }
 
 /* ==========================
-   Responsive Adjustments
+   Watch Page
 ========================== */
-@media (max-width: 1024px) {
-  #main-content {
-    flex-direction: column;
-  }
-
-  .left-column,
-  .right-column {
-    flex: 1 1 100%;
-  }
+#video-container {
+  padding: 15px;
+  max-width: 900px;
+  margin: auto;
 }
+
+iframe {
+  width: 100%;
+  max-height: 500px;
+  border: none;
+}
+
+/* ==========================
+   Responsive Adjustments
+========================== */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .header-center {
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0;
+  }
+
+  header input {
+    width: 100%;
+  }
+
+  header .logos {
+    position: static;
+    margin-top: 10px;
+  }
+}
+
+Update this main css
