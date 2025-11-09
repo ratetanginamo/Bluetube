@@ -19,22 +19,24 @@ a {
 ========================== */
 header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center; /* center title & search */
+  justify-content: space-between; /* modern layout: logo left, search center, logos right */
   padding: 10px 20px;
   background: #ff0000;
   color: #fff;
   width: 100%;
   box-sizing: border-box;
-  position: relative;
-  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 header h1 {
   margin: 0;
   flex: 1;
-  text-align: center;
-  min-width: 100px;
+  text-align: left;
+  min-width: 120px;
   text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
 }
 
@@ -45,6 +47,7 @@ header h1 {
   gap: 10px;
   flex-wrap: wrap;
   justify-content: center;
+  flex: 2;
 }
 
 header input {
@@ -67,12 +70,8 @@ header nav a {
   font-weight: bold;
 }
 
-/* ==========================
-   Neon Logos
-========================== */
+/* Neon Logos */
 header .logos {
-  position: absolute;
-  right: 20px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -118,9 +117,11 @@ header .logos img:hover {
 ========================== */
 #video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 15px;
-  padding: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* responsive grid */
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .video-card {
@@ -153,22 +154,44 @@ header .logos img:hover {
 #video-container {
   padding: 15px;
   max-width: 900px;
-  margin: auto;
+  margin: 20px auto;
 }
 
 iframe {
   width: 100%;
   max-height: 500px;
   border: none;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #00ffff;
+}
+
+/* ==========================
+   Footer
+========================== */
+footer {
+  text-align: center;
+  padding: 16px;
+  background-color: #ff0000;
+  color: #fff;
+  margin-top: 24px;
+  text-shadow: 0 0 5px #00ffff;
 }
 
 /* ==========================
    Responsive Adjustments
 ========================== */
+@media (max-width: 1024px) {
+  #video-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+  }
+}
+
 @media (max-width: 768px) {
   header {
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     padding: 10px;
   }
 
@@ -186,5 +209,16 @@ iframe {
   header .logos {
     position: static;
     margin-top: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  #video-grid {
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+
+  #description {
+    padding: 15px;
   }
 }
