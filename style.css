@@ -21,7 +21,7 @@ header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between; /* modern layout: logo left, search center, logos right */
+  justify-content: space-between;
   padding: 10px 20px;
   background: #ff0000;
   color: #fff;
@@ -40,7 +40,7 @@ header h1 {
   text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
 }
 
-/* Header center: search + nav */
+/* Header Center */
 .header-center {
   display: flex;
   align-items: center;
@@ -90,79 +90,93 @@ header .logos img:hover {
 }
 
 /* ==========================
-   Description / About Section
+   Watch Page Layout
 ========================== */
-#description {
-  max-width: 900px;
+#video-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1200px;
   margin: 20px auto;
-  padding: 20px;
-  background: #111;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+#video-player {
+  flex: 2 1 600px; /* Main video area */
+}
+
+#video-player iframe {
+  width: 100%;
+  height: 450px;
   border-radius: 8px;
   box-shadow: 0 0 10px #00ffff;
 }
 
-#description h2 {
-  margin-top: 0;
+#video-info {
+  flex: 1 1 300px; /* Info & related videos */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Video Info Card */
+#video-info h2 {
+  font-size: 20px;
   color: #00ffff;
   text-shadow: 0 0 5px #00ffff;
 }
 
-#description p {
-  line-height: 1.6;
+#video-info p {
   color: #ccc;
+  line-height: 1.5;
 }
 
-/* ==========================
-   Video Grid (Index Page)
-========================== */
-#video-grid {
+.related-videos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* responsive grid */
-  gap: 20px;
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  grid-template-columns: 1fr;
+  gap: 10px;
 }
 
-.video-card {
+.related-video-card {
+  display: flex;
+  gap: 10px;
   background: #111;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 0 10px #00ffff;
+  box-shadow: 0 0 8px #00ffff;
   transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
 }
 
-.video-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 20px #00ffff;
+.related-video-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 15px #00ffff;
 }
 
-.video-card img {
-  width: 100%;
-  display: block;
+.related-video-card img {
+  width: 120px;
+  height: 70px;
+  object-fit: cover;
 }
 
-.video-card h3 {
-  padding: 10px;
-  font-size: 16px;
+.related-video-card div {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.related-video-card h4 {
+  font-size: 14px;
   color: #fff;
+  margin: 0;
 }
 
-/* ==========================
-   Watch Page
-========================== */
-#video-container {
-  padding: 15px;
-  max-width: 900px;
-  margin: 20px auto;
-}
-
-iframe {
-  width: 100%;
-  max-height: 500px;
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0 0 10px #00ffff;
+.related-video-card p {
+  font-size: 12px;
+  color: #aaa;
+  margin: 0;
 }
 
 /* ==========================
@@ -181,9 +195,17 @@ footer {
    Responsive Adjustments
 ========================== */
 @media (max-width: 1024px) {
-  #video-grid {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 15px;
+  #video-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #video-player {
+    width: 100%;
+  }
+
+  #video-info {
+    width: 100%;
   }
 }
 
@@ -191,7 +213,6 @@ footer {
   header {
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     padding: 10px;
   }
 
@@ -210,15 +231,24 @@ footer {
     position: static;
     margin-top: 10px;
   }
+
+  #video-player iframe {
+    height: 300px;
+  }
+
+  .related-video-card img {
+    width: 100px;
+    height: 60px;
+  }
 }
 
 @media (max-width: 480px) {
-  #video-grid {
-    grid-template-columns: 1fr;
-    padding: 10px;
+  #video-player iframe {
+    height: 200px;
   }
 
-  #description {
-    padding: 15px;
+  .related-video-card img {
+    width: 80px;
+    height: 50px;
   }
 }
