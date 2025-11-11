@@ -1,26 +1,63 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #0a0a0a;
-    color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #0a0a0a;
+  color: #fff;
 }
 
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background: #1a1a1a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: #1a1a1a;
 }
 
 .watch-container {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 iframe {
-    width: 80%;
-    height: 450px;
-    border: none;
+  width: 100%;
+  max-width: 1000px;  /* wider for landscape screens */
+  aspect-ratio: 16/9;  /* maintains proper video ratio */
+  border: none;
+  border-radius: 8px;
 }
+
+/* Video info section below the video */
+.video-info {
+  max-width: 1000px;
+  margin: 10px auto;
+  padding: 0 20px;
+}
+
+.video-info h2 {
+  margin: 10px 0;
+  font-size: 1.5rem;
+}
+
+.video-info p {
+  font-size: 1rem;
+  line-height: 1.4;
+  color: #ccc;
+}
+
+/* Responsive landscape adjustments */
+@media (orientation: landscape) {
+  .watch-container {
+    padding: 10px;
+  }
+
+  iframe {
+    max-width: 80%;
+    height: auto;
+  }
+
+  .video-info {
+    padding: 0 40px;
+  }
+      }
