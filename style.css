@@ -1,270 +1,336 @@
 /* ==========================
-   Bluetube | YouTube-Style Layout
+   CSS Variables (Theming)
 ========================== */
-* {
+:root {
+  --neon-cyan: #00ffff;
+  --neon-cyan-glow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+  --neon-red: #ff0000;
+  --dark-bg: #0a0a0a;
+  --card-bg: #111;
+  --text-light: #ccc;
+  --text-white: #fff;
+  --transition: all 0.3s ease;
+  --border-radius: 8px;
+  --shadow-sm: 0 0 10px var(--neon-cyan);
+  --shadow-lg: 0 0 20px var(--neon-cyan);
+}
+
+/* ==========================
+   General Styles
+========================== */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
-  font-family: "Roboto", Arial, sans-serif;
-  background-color: #0f0f0f;
-  color: #fff;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: var(--dark-bg);
+  color: var(--text-white);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
 }
 
 /* ==========================
-   Header / Navbar
+   Header
 ========================== */
 header {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  background-color: #202020;
-  padding: 10px 20px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  padding: 12px 20px;
+  background: var(--neon-red);
+  color: var(--text-white);
+  position: relative;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
 }
 
-/* Left: Logo */
-header .logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  text-align: center;
+  text-shadow: 0 0 8px var(--neon-cyan), 0 0 16px var(--neon-cyan);
+  letter-spacing: 1px;
 }
 
-header .logo img {
-  width: 35px;
-  height: 35px;
-}
-
-header .logo h1 {
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #ff0000;
-  text-shadow: 0 0 8px #ff0000;
-}
-
-/* Center: Search Bar */
+/* Center: Search + Nav */
 .header-center {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
-  flex: 1;
-  max-width: 600px;
-}
-
-.header-center input[type="text"] {
-  width: 100%;
-  padding: 8px 12px;
-  border: 1px solid #333;
-  border-radius: 25px 0 0 25px;
-  background: #121212;
-  color: #fff;
-  font-size: 14px;
-}
-
-.header-center button {
-  background: #333;
-  border: 1px solid #333;
-  border-radius: 0 25px 25px 0;
-  padding: 8px 16px;
-  cursor: pointer;
-  color: #fff;
-  transition: background 0.3s;
-}
-
-.header-center button:hover {
-  background: #444;
-}
-
-/* Right: Icons / Profile */
-header .icons {
-  display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
+  width: 100%;
+  max-width: 800px;
+  margin: 10px 0;
 }
 
-header .icons img {
+header input {
+  padding: 10px 14px;
+  width: 100%;
+  max-width: 300px;
+  border: 2px solid transparent;
+  border-radius: var(--border-radius);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-white);
+  font-size: 1rem;
+  transition: var(--transition);
+  backdrop-filter: blur(5px);
+}
+
+header input:focus {
+  outline: none;
+  border-color: var(--neon-cyan);
+  box-shadow: var(--shadow-sm);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+header input::placeholder {
+  color: #aaa;
+}
+
+header nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+header nav a {
+  padding: 8px 16px;
+  background: var(--text-white);
+  color: var(--neon-red);
+  font-weight: bold;
+  border-radius: var(--border-radius);
+  font-size: 0.95rem;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+header nav a:hover,
+header nav a:focus {
+  background: var(--neon-cyan);
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ==========================
+   Neon Logos (Right Side)
+========================== */
+header .logos {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10;
+}
+
+header .logos img {
   width: 28px;
   height: 28px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: transform 0.2s;
+  filter: drop-shadow(0 0 6px var(--neon-cyan)) hue-rotate(200deg);
+  transition: var(--transition);
+  opacity: 0.9;
 }
 
-header .icons img:hover {
-  transform: scale(1.1);
-}
-
-/* ==========================
-   Sidebar
-========================== */
-.sidebar {
-  width: 230px;
-  background: #181818;
-  position: fixed;
-  top: 60px;
-  bottom: 0;
-  left: 0;
-  padding-top: 15px;
-  overflow-y: auto;
-}
-
-.sidebar a {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  color: #ccc;
-  padding: 10px 20px;
-  text-decoration: none;
-  transition: background 0.3s, color 0.3s;
-}
-
-.sidebar a:hover {
-  background: #383838;
-  color: #fff;
-}
-
-.sidebar a.active {
-  background: #ff0000;
-  color: #fff;
+header .logos img:hover {
+  transform: scale(1.3) rotate(5deg);
+  filter: drop-shadow(0 0 12px var(--neon-cyan)) drop-shadow(0 0 20px var(--neon-cyan)) hue-rotate(200deg);
+  opacity: 1;
 }
 
 /* ==========================
-   Main Content
+   Description / About Section
 ========================== */
-main {
-  margin-left: 230px;
-  padding: 20px;
+#description {
+  max-width: 900px;
+  margin: 25px auto;
+  padding: 25px;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  animation: fadeIn 0.6s ease-out;
 }
 
-/* Video Grid */
+#description h2 {
+  margin-top: 0;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px var(--neon-cyan);
+  font-size: 1.6rem;
+}
+
+#description p {
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================
+   Video Grid (Index Page)
+========================== */
 #video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .video-card {
-  background: #181818;
-  border-radius: 10px;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
   overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  border: 1px solid rgba(0, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
 }
 
 .video-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 15px #ff000066;
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--neon-cyan);
 }
 
 .video-card img {
   width: 100%;
   height: 180px;
   object-fit: cover;
+  transition: var(--transition);
 }
 
-.video-card .info {
-  padding: 12px;
-  display: flex;
-  gap: 10px;
-}
-
-.video-card .info img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-
-.video-card .info div {
-  flex: 1;
+.video-card:hover img {
+  transform: scale(1.05);
 }
 
 .video-card h3 {
-  font-size: 15px;
-  margin-bottom: 5px;
-  color: #fff;
-}
-
-.video-card p {
-  font-size: 13px;
-  color: #aaa;
+  padding: 12px 15px;
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--text-white);
+  flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ==========================
-   Watch Page Layout
+   Watch Page
 ========================== */
-#watch-container {
-  display: flex;
-  gap: 20px;
+#video-container {
   padding: 20px;
-  max-width: 1400px;
-  margin: auto;
+  max-width: 900px;
+  margin: 20px auto;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0, 255, 255, 0.2);
 }
 
-#watch-container iframe {
-  flex: 2;
+iframe {
   width: 100%;
   height: 500px;
+  max-height: 70vh;
   border: none;
-  border-radius: 10px;
-  background: #000;
-}
-
-#video-details {
-  flex: 1;
-  background: #181818;
-  padding: 15px;
-  border-radius: 10px;
-  color: #fff;
-  box-shadow: 0 0 10px #ff000066;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ==========================
-   Responsive Design
+   Responsive Adjustments
 ========================== */
-@media (max-width: 1024px) {
-  .sidebar {
-    width: 80px;
-  }
-
-  .sidebar a span {
-    display: none;
-  }
-
-  main {
-    margin-left: 80px;
-  }
-
-  #watch-container {
-    flex-direction: column;
-  }
-}
-
 @media (max-width: 768px) {
   header {
-    flex-wrap: wrap;
-    justify-content: center;
+    padding: 10px;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
   }
 
   .header-center {
-    order: 3;
-    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  header input {
+    max-width: 100%;
+  }
+
+  header .logos {
+    position: static;
+    transform: none;
     margin-top: 10px;
+    order: 3;
   }
 
-  main {
-    margin-left: 0;
+  #video-grid {
+    grid-template-columns: 1fr;
+    padding: 15px;
   }
 
-  .sidebar {
-    display: none;
-  }
-
-  #watch-container iframe {
+  iframe {
     height: 300px;
   }
-   }
-   
+}
+
+@media (max-width: 480px) {
+  header nav a {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+
+  #description,
+  #video-container {
+    margin: 15px 10px;
+    padding: 15px;
+  }
+
+  .video-card h3 {
+    font-size: 1rem;
+  }
+}
+
+/* ==========================
+   Focus States for Accessibility
+========================== */
+a:focus-visible,
+input:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 2px;
+}
+
+/* ==========================
+   Smooth Scroll & Performance
+========================== */
+html {
+  scroll-behavior: smooth;
+}
+
+img {
+  loading: lazy;
+}
