@@ -6,13 +6,15 @@ const videoContainer = document.getElementById("videoContainer");
 // Allowed countries
 const allowedCountries = ["PH", "US", "JP", "CA", "GB"]; // GB = UK
 
+let userCountry = null;
+
 // Check visitor country
 async function checkCountry() {
     try {
         const res = await fetch("https://ipapi.co/json/");
         const data = await res.json();
-        if (!allowedCountries.includes(data.country)) {
-            // Replace page content with access denied
+        userCountry = data.country;
+        if (!allowedCountries.includes(userCountry)) {
             document.body.innerHTML = `
                 <div style="display:flex;justify-content:center;align-items:center;height:100vh;flex-direction:column;color:#fff;background:#0a0a0a;font-family:Arial,sans-serif;">
                     <h1>Access Denied</h1>
@@ -24,16 +26,15 @@ async function checkCountry() {
         return true;
     } catch (error) {
         console.error("GeoIP check failed:", error);
-        return true; // fallback: allow access if API fails
+        userCountry = "US"; // fallback to US
+        return true;
     }
 }
 
 // Initialize site
 async function init() {
     const allowed = await checkCountry();
-    if (!allowed) return; // Stop loading videos if not allowed
-
-    // Load default trending videos
+    if (!allowed) return; // Stop if user not allowed
     fetchVideos("trending");
 }
 
@@ -42,17 +43,25 @@ init();
 // Search button click
 searchBtn.addEventListener("click", () => {
     const query = searchInput.value.trim();
-    if (query) fetchVideos(query);
+    if (!query) return;
+
+    // Limit search to allowed countries
+    if (!allowedCountries.includes(userCountry)) {
+        alert("Search is not available in your country.");
+        return;
+    }
+    fetchVideos(query);
 });
 
-// Fetch videos (same as before)
+// Fetch videos from allowed countries only
 async function fetchVideos(query) {
     videoContainer.innerHTML = "<p>Loading...</p>";
-    const countries = ["PH", "US", "JP", "CA", "UK"];
     try {
         const allVideos = [];
-        for (let country of countries) {
+
+        for (let country of allowedCountries) {
             const region = country === "UK" ? "GB" : country;
+
             const response = await fetch(
                 `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&type=video&maxResults=3&regionCode=${region}&key=${API_KEY}`
             );
@@ -88,4 +97,4 @@ async function fetchVideos(query) {
         videoContainer.innerHTML = "<p>Error loading videos. Try again later.</p>";
         console.error(error);
     }
-                    }
+}
