@@ -24,6 +24,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
@@ -38,6 +42,10 @@ a {
   text-decoration: none;
   color: inherit;
   transition: var(--transition);
+}
+
+img {
+  loading: lazy;
 }
 
 /* ==========================
@@ -61,6 +69,7 @@ header h1 {
   text-align: center;
   text-shadow: 0 0 8px var(--neon-cyan), 0 0 16px var(--neon-cyan);
   letter-spacing: 1px;
+  font-family: 'Orbitron', sans-serif;
 }
 
 /* Center: Search + Nav */
@@ -75,30 +84,61 @@ header h1 {
   margin: 10px 0;
 }
 
+/* ==== SEARCH INPUT WITH ANIMATION ==== */
 header input {
+  position: relative;
   padding: 10px 14px;
   width: 100%;
   max-width: 300px;
   border: 2px solid transparent;
   border-radius: var(--border-radius);
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   color: var(--text-white);
   font-size: 1rem;
-  transition: var(--transition);
+  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.4, 1);
   backdrop-filter: blur(5px);
-}
-
-header input:focus {
-  outline: none;
-  border-color: var(--neon-cyan);
-  box-shadow: var(--shadow-sm);
-  background: rgba(255, 255, 255, 0.15);
+  overflow: hidden;
 }
 
 header input::placeholder {
   color: #aaa;
 }
 
+header input:focus {
+  outline: none;
+  max-width: 340px;
+  border-color: var(--neon-cyan);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: var(--shadow-lg);
+  transform: scale(1.02);
+}
+
+/* Pulse glow when idle */
+@keyframes searchPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.6); }
+  50%      { box-shadow: 0 0 0 12px rgba(0, 255, 255, 0); }
+}
+header input:not(:focus) {
+  animation: searchPulse 2s infinite;
+}
+
+/* Glowing underline on focus */
+header input::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: var(--neon-cyan);
+  transition: width 0.3s ease;
+  transform: translateX(-50%);
+}
+header input:focus::after {
+  width: 80%;
+}
+
+/* Nav Buttons */
 header nav {
   display: flex;
   flex-wrap: wrap;
@@ -115,6 +155,7 @@ header nav a {
   font-size: 0.95rem;
   transition: var(--transition);
   white-space: nowrap;
+  font-family: 'Orbitron', sans-serif;
 }
 
 header nav a:hover,
@@ -125,9 +166,7 @@ header nav a:focus {
   box-shadow: var(--shadow-sm);
 }
 
-/* ==========================
-   Neon Logos (Right Side)
-========================== */
+/* Neon Logos */
 header .logos {
   position: absolute;
   right: 20px;
@@ -171,6 +210,7 @@ header .logos img:hover {
   color: var(--neon-cyan);
   text-shadow: 0 0 8px var(--neon-cyan);
   font-size: 1.6rem;
+  font-family: 'Orbitron', sans-serif;
 }
 
 #description p {
@@ -178,7 +218,6 @@ header .logos img:hover {
   margin-bottom: 1rem;
 }
 
-/* Fade-in animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -197,6 +236,7 @@ header .logos img:hover {
 }
 
 .video-card {
+  position: relative;
   background: var(--card-bg);
   border-radius: var(--border-radius);
   overflow: hidden;
@@ -207,6 +247,41 @@ header .logos img:hover {
   flex-direction: column;
 }
 
+/* ==== PLAY BUTTON OVERLAY ==== */
+.video-card::before {
+  content: "Play";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  font-family: 'Orbitron', sans-serif;
+  color: rgba(0, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  z-index: 2;
+  transform: scale(0.9);
+  text-shadow: 0 0 15px var(--neon-cyan);
+}
+
+.video-card:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@keyframes playPulse {
+  0%, 100% { text-shadow: 0 0 15px var(--neon-cyan); }
+  50%      { text-shadow: 0 0 30px var(--neon-cyan), 0 0 45px var(--neon-cyan); }
+}
+.video-card:hover::before {
+  animation: playPulse 1.5s infinite;
+}
+
+/* Hover Effects */
 .video-card:hover {
   transform: translateY(-8px);
   box-shadow: var(--shadow-lg);
@@ -235,6 +310,62 @@ header .logos img:hover {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* ==========================
+   Loading Skeleton
+========================== */
+.skeleton {
+  background: #1a1a1a;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    transparent);
+  animation: skeletonShimmer 1.6s infinite;
+}
+
+@keyframes skeletonShimmer {
+  0%   { left: -150%; }
+  100% { left: 150%; }
+}
+
+.skeleton .thumb {
+  height: 180px;
+  background: #222;
+}
+
+.skeleton .title {
+  height: 1.2rem;
+  margin: 12px 15px 8px;
+  background: #222;
+  border-radius: 4px;
+}
+
+.skeleton .meta {
+  height: 0.9rem;
+  margin: 0 15px 12px;
+  width: 60%;
+  background: #222;
+  border-radius: 4px;
+}
+
+.video-card.skeleton img,
+.video-card.skeleton h3 {
+  visibility: hidden;
 }
 
 /* ==========================
@@ -280,6 +411,10 @@ iframe {
     max-width: 100%;
   }
 
+  header input:focus {
+    max-width: 100%;
+  }
+
   header .logos {
     position: static;
     transform: none;
@@ -294,6 +429,10 @@ iframe {
 
   iframe {
     height: 300px;
+  }
+
+  .video-card::before {
+    font-size: 3rem;
   }
 }
 
@@ -312,25 +451,18 @@ iframe {
   .video-card h3 {
     font-size: 1rem;
   }
+
+  .video-card::before {
+    font-size: 2.5rem;
+  }
 }
 
 /* ==========================
-   Focus States for Accessibility
+   Accessibility: Focus States
 ========================== */
 a:focus-visible,
 input:focus-visible,
 button:focus-visible {
   outline: 2px solid var(--neon-cyan);
   outline-offset: 2px;
-}
-
-/* ==========================
-   Smooth Scroll & Performance
-========================== */
-html {
-  scroll-behavior: smooth;
-}
-
-img {
-  loading: lazy;
-}
+     }
