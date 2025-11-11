@@ -1,6 +1,3 @@
-// GitHub username
-const GITHUB_USERNAME = "ratetanginamo";
-
 async function loadRepos() {
   const repoList = document.getElementById("repo-list");
 
@@ -8,7 +5,7 @@ async function loadRepos() {
     const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos`);
     const repos = await res.json();
 
-    // Filter only Bluetube-related repositories (optional)
+    // Filter only Bluetube-related repositories
     const bluetubeRepos = repos.filter(repo =>
       repo.name.toLowerCase().includes("bluetube")
     );
@@ -32,4 +29,4 @@ async function loadRepos() {
   }
 }
 
-loadRepos();
+loadRepos(); // ✅ Runs automatically when the 404 page loads
