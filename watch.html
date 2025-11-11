@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Watch Video | BlueTube - SEC IT Students</title>
-  <meta name="description" content="Watch IT tutorials and coding videos on BlueTube, created by IT students from Surigao Education Center.">
+  <title>Watch | BlueTube - SEC IT Students</title>
+  <meta name="description" content="Watch IT tutorials on BlueTube, created by IT students from Surigao Education Center.">
   
   <!-- Fonts & CSS -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
@@ -29,83 +29,35 @@
     </div>
   </header>
 
-  <!-- Main Video Player -->
+  <!-- Video Player -->
   <main id="video-container">
     <div class="player-wrapper">
+      <div id="player-placeholder" class="skeleton">
+        <div class="thumb"></div>
+      </div>
       <iframe id="youtube-player"
         src=""
         title="YouTube video player"
         frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen>
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        loading="lazy">
       </iframe>
     </div>
 
-    <div id="video-info" class="video-info">
-      <h2 id="video-title">Loading video...</h2>
-      <p id="video-description">Fetching details...</p>
+    <div class="video-info">
+      <h2 id="video-title" class="skeleton title">Loading video...</h2>
+      <p id="video-description" class="skeleton meta">Fetching details...</p>
     </div>
   </main>
 
   <!-- Footer -->
   <footer>
-    <p>
-      © 2025 BlueTube | 
-      <span class="highlight">Created by IT Students from Surigao Education Center</span>
-    </p>
+    <p>© 2025 BlueTube | <span class="highlight">Created by IT Students from Surigao Education Center</span></p>
     <p>Surigao City, Philippines • CHED-Recognized • Empowering Future Developers</p>
   </footer>
 
-  <!-- JavaScript -->
-  <script>
-    // YouTube API Key (same as script.js)
-    const apiKey = atob("QUl6YVN5Q1lSSU5OcEtTTEVYaWNEZThmc3I4Z1ZNZ1RWMTRSNGdR");
-    
-    const params = new URLSearchParams(window.location.search);
-    const videoId = params.get('v');
-    const player = document.getElementById('youtube-player');
-    const titleEl = document.getElementById('video-title');
-    const descEl = document.getElementById('video-description');
-
-    if (!videoId) {
-      document.getElementById('video-container').innerHTML = `
-        <div class="error-msg">
-          <h2>Video Not Found</h2>
-          <p>No video ID provided. <a href="index.html">Go back to home</a>.</p>
-        </div>
-      `;
-      return;
-    }
-
-    // Load YouTube Player
-    player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
-
-    // Fetch Video Details
-    async function fetchVideoDetails() {
-      try {
-        const response = await fetch(
-          `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${apiKey}`
-        );
-        const data = await response.json();
-
-        if (data.items && data.items.length > 0) {
-          const video = data.items[0].snippet;
-          titleEl.textContent = video.title;
-          descEl.innerHTML = video.description
-            .replace(/\n/g, '<br>')
-            .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
-        } else {
-          titleEl.textContent = "Video Unavailable";
-          descEl.textContent = "This video may be private or deleted.";
-        }
-      } catch (error) {
-        console.error("API Error:", error);
-        titleEl.textContent = "Failed to Load Video Info";
-        descEl.textContent = "Please check your connection or try again later.";
-      }
-    }
-
-    fetchVideoDetails();
-  </script>
+  <!-- JS -->
+  <script src="watch.js"></script>
 </body>
 </html>
