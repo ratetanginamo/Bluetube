@@ -1,0 +1,26 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #0a0a0a;
+    color: #fff;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #1a1a1a;
+}
+
+.watch-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+iframe {
+    width: 80%;
+    height: 450px;
+    border: none;
+}
