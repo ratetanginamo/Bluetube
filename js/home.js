@@ -4,7 +4,7 @@ const searchInput = document.getElementById("searchInput");
 const videoContainer = document.getElementById("videoContainer");
 
 // Allowed countries
-const allowedCountries = [ "US", "JP", "CA", "GB"]; // GB = UK
+const allowedCountries = ["PH","US", "JP", "CA", "GB"]; // GB = UK
 let userCountry = null;
 
 // Check visitor country
