@@ -1,89 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bluetube Landing Page</title>
-  <style>
-    /* Reset some default styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bluetube Landing Page</title>
+<style>
+  /* Reset */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; background-color: #0d0d0d; color: #fff; }
 
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f8f8f8;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-    }
+  /* Navbar */
+  nav {
+    width: 100%;
+    background-color: #0f0f0f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid #222;
+  }
+  nav .logo { font-size: 2rem; font-weight: bold; color: #1a73e8; }
 
-    header {
-      width: 100%;
-      padding: 20px;
-      text-align: center;
-      background-color: #1a73e8;
-      color: white;
-      font-size: 2rem;
-      font-weight: bold;
-    }
+  /* Hero Section */
+  .hero {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #000;
+  }
+  /* Dark overlay on hero image */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top:0; left:0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 1;
+    border-radius: 10px;
+  }
+  .hero a img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.7);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    z-index: 2;
+  }
+  .hero a img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.9);
+  }
 
-    main {
-      margin-top: 40px;
-      text-align: center;
-    }
+  /* Footer */
+  footer {
+    background-color: #0f0f0f;
+    padding: 20px;
+    text-align: center;
+    color: #888;
+    margin-top: 50px;
+    border-top: 1px solid #222;
+  }
 
-    /* Clickable image */
-    .clickable-image {
-      width: 300px;
-      max-width: 90%;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: transform 0.3s, box-shadow 0.3s;
-      cursor: pointer;
-    }
-
-    .clickable-image:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-    }
-
-    footer {
-      margin-top: 50px;
-      font-size: 0.9rem;
-      color: #666;
-    }
-  </style>
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav .logo { font-size: 1.5rem; }
+    .hero { padding: 30px 10px; }
+  }
+</style>
 </head>
 <body>
 
-  <header>
-    Bluetube
-  </header>
+<!-- Navbar -->
+<nav>
+  <div class="logo">Bluetube</div>
+</nav>
 
-  <main>
-    <p>Click the image below to go to the home page:</p>
-    <a href="https://ratetanginamo.github.io/Bluetube/html/home.html">
-      <img class="clickable-image" src="https://i.postimg.cc/yD37KPsF/your-image.jpg" alt="Bluetube Home">
-    </a>
-  </main>
+<!-- Hero Section -->
+<section class="hero">
+  <a href="https://ratetanginamo.github.io/Bluetube/html/home.html" target="_blank">
+    <img src="https://i.postimg.cc/yD37KPsF/unnamed-(1).jpg" alt="Bluetube Hero Image">
+  </a>
+</section>
 
-  <footer>
-    &copy; 2025 Bluetube. All rights reserved.
-  </footer>
-
-  <script>
-    // Example JavaScript: alert when image is clicked
-    const clickableImage = document.querySelector('.clickable-image');
-    clickableImage.addEventListener('click', () => {
-      console.log('Image clicked, navigating to home page!');
-    });
-  </script>
+<!-- Footer -->
+<footer>
+  &copy; 2025 Bluetube. All rights reserved.
+</footer>
 
 </body>
 </html>
